@@ -8,6 +8,7 @@
 <body>
 
     <nav id="main-nav">
+        <div class="logo">F1 PORTAL</div>
         <ul class="nav-menu">
             <li><a href="index.html">Home</a></li>
             <li><a href="teams.html">Teams</a></li>
@@ -21,14 +22,19 @@
     </header>
 
     <main>
-        <section>
-            <h2>Constructors' Championship</h2>
-            <p>The elite teams of Formula 1 competing for the prestigious constructor title.</p>
+    <div class="grid-page-container">
         
-            <div class="content-image">
-                <img src="images/team.jpg" alt="Formula 1 pit stop crew">
-            </div>
+        <aside class="sidebar">
+            <h3>Quick Filter</h3>
+            <ul>
+                <li><a href="#">Top Teams</a></li>
+                <li><a href="#">Power Units</a></li>
+                <li><a href="#">Season Standings</a></li>
+            </ul>
+        </aside>
 
+        <section class="main-content">
+            <h2>Constructor Standings</h2>
             <table class="f1-table">
                 <thead>
                     <tr>
@@ -46,7 +52,7 @@
                     <tr>
                         <td>Ferrari</td>
                         <td>Ferrari</td>
-                        <td>390</td>
+                        <td>410</td>
                     </tr>
                     <tr>
                         <td>McLaren</td>
@@ -56,7 +62,9 @@
                 </tbody>
             </table>
         </section>
-    </main>
+
+    </div>
+</main>
 
     <footer>
         <p>Developers: Anuar Tursynbekov & Zhanaiym Sadyk</p> 
