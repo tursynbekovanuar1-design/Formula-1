@@ -11,11 +11,9 @@
         <nav id="main-nav" class="navbar navbar-expand-lg navbar-dark px-4">
             <div class="container-fluid">
                 <a class="logo" href="index.html">F1 PORTAL</a>
-                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto gap-3 nav-menu">
                         <li class="nav-item"><a class="nav-link active text-white" href="index.html">Home</a></li>
@@ -32,24 +30,37 @@
         <h1>Welcome to the World of Formula 1</h1>
     </header>
 
-    <main>
-        <section class="cards-section">
-            <h2>Latest F1 News</h2>
-            <div class="custom-card-group">
-                <div class="custom-card">
-                    <h3>F1 Car</h3>
-                    <p>Discover the major technical rule updates introduced for the upcoming Formula 1 championship.</p>
+    <main class="container my-4">
+        <section class="cards-section mb-5">
+            <h2 class="text-center mb-4 text-white">Latest F1 News</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 bg-dark text-light border-secondary">
+                        <div class="card-body">
+                            <h3 class="card-title text-danger fs-5">F1 Car</h3>
+                            <p class="card-text text-light">Discover the major technical rule updates introduced for the upcoming Formula 1 championship.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="custom-card">
-                    <h3>Championship Battle</h3>
-                    <p>An intense analysis of the title contenders fighting for the drivers' championship crown.</p>
+                <div class="col-md-4">
+                    <div class="card h-100 bg-dark text-light border-secondary">
+                        <div class="card-body">
+                            <h3 class="card-title text-danger fs-5">Championship Battle</h3>
+                            <p class="card-text text-light">An intense analysis of the title contenders fighting for the drivers' championship crown.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="custom-card">
-                    <h3>Calendar Expansion</h3>
-                    <p>Exploring the new circuits and classic tracks featured on the record-breaking race calendar.</p>
+                <div class="col-md-4">
+                    <div class="card h-100 bg-dark text-light border-secondary">
+                        <div class="card-body">
+                            <h3 class="card-title text-danger fs-5">Calendar Expansion</h3>
+                            <p class="card-text text-light">Exploring the new circuits and classic tracks featured on the record-breaking race calendar.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+
         <section class="mb-5">
             <h2 class="text-danger mb-3">F1 Gallery & Highlights</h2>
             <div id="f1Carousel" class="carousel slide shadow rounded overflow-hidden" data-bs-ride="carousel">
