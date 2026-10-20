@@ -7,74 +7,81 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <nav id="main-nav" class="navbar navbar-expand-lg navbar-dark px-4">
-            <div class="container-fluid">
-                <a class="logo text-danger" href="index.html">F1 PORTAL</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto gap-3 nav-menu">
-                        <li class="nav-item"><a class="nav-link text-light" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link active text-white" href="teams.html">Teams</a></li>
-                        <li class="nav-item"><a class="nav-link text-light" href="drivers.html">Drivers</a></li>
-                        <li class="nav-item"><a class="nav-link text-light" href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
+<header>
+    <nav id="main-nav" class="navbar navbar-expand-lg navbar-dark px-4">
+        <div class="container-fluid">
+            <a class="logo" href="index.html">F1 PORTAL</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-3 nav-menu">
+                    <li class="nav-item"><a class="nav-link text-light" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active text-white" href="teams.html">Teams</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="drivers.html">Drivers</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="contact.html">Contact</a></li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
-    <header id="main-header">
-        <h1>Constructors & Cars</h1>
-    </header>
+<header id="main-header">
+    <h1>Constructors & Cars</h1>
+</header>
 
-    <main class="grid-page-container">
-        <aside class="sidebar">
-            <h3>Quick Filter</h3>
-            <ul>
-                <li><a href="#">Top Teams</a></li>
-                <li><a href="#">Power Units</a></li>
-                <li><a href="#">Season Standings</a></li>
-            </ul>
-        </aside>
+<main style="max-width: 1000px;">
+    <section class="mb-5">
+        <h2>Constructor Standings</h2>
+        <table class="f1-table">
+            <thead>
+            <tr>
+                <th>Team</th>
+                <th>Power Unit</th>
+                <th>Points</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Red Bull Racing</td>
+                <td>Honda RBPT</td>
+                <td>450</td>
+            </tr>
+            <tr>
+                <td>Ferrari</td>
+                <td>Ferrari</td>
+                <td>410</td>
+            </tr>
+            <tr>
+                <td>McLaren</td>
+                <td>Mercedes</td>
+                <td>380</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
 
-        <section class="main-content">
-            <h2>Constructor Standings</h2>
-            <table class="f1-table">
-                <thead>
-                    <tr>
-                        <th>Team</th>
-                        <th>Power Unit</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Red Bull Racing</td>
-                        <td>Honda RBPT</td>
-                        <td>450</td>
-                    </tr>
-                    <tr>
-                        <td>Ferrari</td>
-                        <td>Ferrari</td>
-                        <td>410</td>
-                    </tr>
-                    <tr>
-                        <td>McLaren</td>
-                        <td>Mercedes</td>
-                        <td>380</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
+    <section>
+        <h2>Frequently Asked Questions</h2>
 
-    <footer>
-        <p>&copy; 2026 F1 Educational Portal. All rights reserved. | Developers: <strong>Anuar Tursynbekov</strong> & <strong>Zhanaiym Sadyk</strong></p>
-    </footer>
+        <div class="accordion-header-custom">What is a Constructor's Championship?</div>
+        <div class="accordion-content-custom">
+            <p>The World Constructors' Championship (WCC) is awarded by the FIA to the most successful F1 constructor over the course of the season, based on points accumulated from race finishes.</p>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>    
+        <div class="accordion-header-custom">How are race points allocated?</div>
+        <div class="accordion-content-custom">
+            <p>Points are awarded to the top 10 finishing drivers at each Grand Prix, ranging from 25 points for 1st place down to 1 point for 10th place, plus an extra point for the fastest lap.</p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 F1 Educational Portal. All rights reserved. | Developers: <strong>Anuar Tursynbekov</strong> & <strong>Zhanaiym Sadyk</strong>[cite: 1, 4]</p>
+    <p id="live-clock" class="text-muted small mt-1 mb-0"></p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
