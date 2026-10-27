@@ -1,4 +1,4 @@
-* {
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -379,6 +379,25 @@ form button[type="submit"]:hover {
 
 .close-btn:hover {
     color: #ff1801;
+}
+
+/* Rating Stars styling */
+.star {
+    color: #6c757d;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.star:hover {
+    transform: scale(1.2);
+}
+
+#live-clock {
+    color: #ffffff !important;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 5px;
+    letter-spacing: 1px;
 }
 
 footer {
