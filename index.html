@@ -35,6 +35,17 @@
 </header>
 
 <main>
+    <!-- Dynamic Races List (Task for Home Page) -->
+    <section class="mb-5">
+        <h2>F1 Season Highlights (Dynamic List)</h2>
+        <div class="mb-3">
+            <button id="filter-classic" class="btn btn-outline-danger btn-sm">Filter Classic Races</button>
+            <button id="reset-filter" class="btn btn-outline-light btn-sm ms-2">Show All Races</button>
+        </div>
+        <ul id="dynamic-races-list" class="list-group bg-transparent"></ul>
+    </section>
+
+    <!-- News Section -->
     <section class="cards-section mb-5">
         <h2>Latest F1 News</h2>
         <div class="row g-4">
@@ -59,6 +70,20 @@
         </div>
     </section>
 
+    <!-- Rating Stars Section -->
+    <section class="my-5 p-4 bg-dark rounded border border-secondary text-center">
+        <h3 class="text-white fs-5 mb-3">Rate This F1 Portal</h3>
+        <div id="rating-stars" class="fs-3 mb-2" style="cursor: pointer;">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+        </div>
+        <p id="rating-feedback" class="text-muted small mb-0">Click a star to rate</p>
+    </section>
+
+    <!-- Carousel Gallery Section -->
     <section>
         <h2>F1 Gallery & Highlights</h2>
         <div id="f1Carousel" class="carousel slide shadow rounded overflow-hidden" data-bs-ride="carousel">
@@ -85,6 +110,7 @@
     </section>
 </main>
 
+<!-- Popup Modal -->
 <div id="popup-modal" class="popup-overlay">
     <div class="popup-content">
         <span id="close-popup-btn" class="close-btn">&times;</span>
@@ -97,7 +123,7 @@
 
 <footer>
     <p>&copy; 2026 F1 Educational Portal. All rights reserved. | Developers: <strong>Anuar Tursynbekov</strong> & <strong>Zhanaiym Sadyk</strong>[cite: 1, 4]</p>
-    <p id="live-clock" class="text-muted small mt-1 mb-0"></p>
+    <p id="live-clock" class="text-light small mt-1 mb-0 fw-bold"></p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
