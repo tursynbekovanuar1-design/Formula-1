@@ -36,9 +36,17 @@ body.light-mode .popup-content {
 }
 
 body.light-mode .list-group-item {
-    background-color: #f8f9fa !important;
+    background-color: #ffffff !important;
     color: #111827 !important;
     border-color: #e5e7eb !important;
+}
+
+body.light-mode .list-group-item span strong {
+    color: #111827 !important;
+}
+
+body.light-mode .list-group-item span em {
+    color: #4b5563 !important;
 }
 
 body.light-mode h1,
@@ -123,7 +131,7 @@ body.light-mode #live-clock {
 }
 
 /* ==========================================
-   NIGHT MODE (ТЁМНАЯ ТЕМА)
+   NIGHT MODE & ТЁМНЫЕ ЭЛЕМЕНТЫ
    ========================================== */
 .theme-card,
 .card {
@@ -139,7 +147,26 @@ body.light-mode #live-clock {
     color: #b0b0c0 !important;
 }
 
-/* --- ПОЛЕ ПОИСКА (ФОКУС И ЦВЕТА) --- */
+/* Тёмные ячейки динамических списков */
+.list-group-item {
+    background-color: #1a1a24 !important;
+    color: #ffffff !important;
+    border: 1px solid #2a2a3d !important;
+}
+
+.list-group-item span strong {
+    color: #ffffff !important;
+}
+
+.list-group-item span em {
+    color: #b0b0c0 !important;
+}
+
+.list-group-item:hover {
+    background-color: #242433 !important;
+}
+
+/* Поле поиска */
 #global-search-input {
     background-color: #0b0b0e !important;
     color: #ffffff !important;
@@ -150,7 +177,23 @@ body.light-mode #live-clock {
     color: #8a8a9e !important;
 }
 
-/* --- SCROLL PROGRESS BAR --- */
+/* Звёзды рейтинга (Красный цвет при клике и hover) */
+#rating-stars .star {
+    cursor: pointer;
+    font-size: 2rem;
+    color: #6c757d;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+    user-select: none;
+}
+
+#rating-stars .star.active,
+#rating-stars .star.hovered {
+    color: #ff1801 !important;
+    text-shadow: 0 0 10px rgba(255, 24, 1, 0.5);
+}
+
+/* Scroll Progress Bar */
 #scroll-progress-container {
     position: fixed;
     top: 0;
@@ -168,7 +211,7 @@ body.light-mode #live-clock {
     transition: width 0.1s ease-out;
 }
 
-/* --- ПОДСВЕТКА И АВТОДОПОЛНЕНИЕ --- */
+/* Подсветка и выпадающий список */
 mark.highlight-search {
     background-color: #ff1801;
     color: #ffffff;
@@ -194,7 +237,7 @@ mark.highlight-search {
     color: #ffffff !important;
 }
 
-/* --- БАЗОВАЯ СТРУКТУРА --- */
+/* Базовый макет */
 main {
     flex: 1;
     max-width: 850px;
@@ -395,7 +438,6 @@ form input:focus, form textarea:focus {
     object-fit: cover;
 }
 
-/* --- АККОРДЕОН --- */
 .accordion-header-custom {
     cursor: pointer;
     background-color: #15151e;
@@ -418,7 +460,6 @@ form input:focus, form textarea:focus {
     border-top: none;
 }
 
-/* --- ПОПАП (МОДАЛЬНОЕ ОКНО) --- */
 .popup-overlay {
     display: none;
     position: fixed;
@@ -456,17 +497,6 @@ form input:focus, form textarea:focus {
     color: #ff1801;
 }
 
-/* --- ЗВЕЗДЫ РЕЙТИНГА --- */
-.star {
-    color: #6c757d;
-    transition: color 0.2s ease, transform 0.2s ease;
-    display: inline-block;
-}
-
-.star:hover {
-    transform: scale(1.2);
-}
-
 footer {
     text-align: center;
     padding: 25px;
@@ -476,60 +506,4 @@ footer {
     font-size: 13px;
     margin-top: 50px;
     text-transform: uppercase;
-}
-
-/* ==========================================
-   ИСПРАВЛЕНИЕ ТЁМНЫХ ЯЧЕЕК (NIGHT MODE)
-   ========================================== */
-/* Динамические списки (Monaco, Silverstone и т.д.) */
-.list-group-item {
-    background-color: #1a1a24 !important; /* Тёмный фон как у карточек */
-    color: #ffffff !important;           /* Белый основной текст */
-    border: 1px solid #2a2a3d !important; /* Тёмно-серая рамка */
-}
-
-.list-group-item span strong {
-    color: #ffffff !important;
-}
-
-.list-group-item span em {
-    color: #b0b0c0 !important;
-}
-
-.list-group-item:hover {
-    background-color: #242433 !important;
-}
-
-/* ==========================================
-   ИСПРАВЛЕНИЕ ЗВЁЗД РЕЙТИНГА
-   ========================================== */
-#rating-stars .star {
-    cursor: pointer;
-    font-size: 2rem;
-    color: #6c757d; /* Серый цвет невыбранных звезд */
-    transition: color 0.2s ease, transform 0.2s ease;
-    display: inline-block;
-    user-select: none;
-}
-
-/* Красный цвет для активных / выбранных звезд */
-#rating-stars .star.active,
-#rating-stars .star.hovered {
-    color: #ff1801 !important; /* Красный цвет F1 */
-    text-shadow: 0 0 10px rgba(255, 24, 1, 0.5);
-}
-
-/* Поддержка светлой темы (Day Mode) */
-body.light-mode .list-group-item {
-    background-color: #ffffff !important;
-    color: #111827 !important;
-    border-color: #e5e7eb !important;
-}
-
-body.light-mode .list-group-item span strong {
-    color: #111827 !important;
-}
-
-body.light-mode .list-group-item span em {
-    color: #4b5563 !important;
 }
