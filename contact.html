@@ -3,23 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Formula 1 | Contact</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Подключаем jQuery CDN, затем script.js с defer -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
+
+<!-- TASK 4: Scroll Progress Bar -->
+<div id="scroll-progress-container">
+    <div id="scroll-progress"></div>
+</div>
+
+<!-- TASK 7: Toast Container -->
+<div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;"></div>
+
 <header>
     <nav id="main-nav" class="navbar navbar-expand-lg navbar-dark px-4">
         <div class="container-fluid">
             <a class="logo" href="index.html">F1 PORTAL</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto gap-3 nav-menu">
+                <ul class="navbar-nav ms-auto gap-3 nav-menu align-items-center">
                     <li class="nav-item"><a class="nav-link text-light" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link text-light" href="teams.html">Teams</a></li>
                     <li class="nav-item"><a class="nav-link text-light" href="drivers.html">Drivers</a></li>
                     <li class="nav-item"><a class="nav-link active text-white" href="contact.html">Contact</a></li>
+                    <li class="nav-item">
+                        <button id="theme-toggle-btn" class="btn btn-outline-danger btn-sm fw-bold">☀️ Day Mode</button>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -27,29 +43,43 @@
 </header>
 
 <header id="main-header">
-    <h1>Get in Touch</h1>
+    <h1 class="highlightable">Get in Touch</h1>
     <div class="mt-3">
         <button id="open-popup-btn" class="btn btn-danger btn-sm fw-bold">Quick Subscribe</button>
     </div>
 </header>
 
 <main style="max-width: 650px;">
+    <!-- TASK 8: Copied to Clipboard Section (Email Support) -->
+    <section class="p-3 theme-card rounded border border-secondary mb-4 d-flex justify-content-between align-items-center">
+        <div>
+            <small class="d-block">OFFICIAL SUPPORT EMAIL</small>
+            <span id="support-email" class="fw-bold fs-5">support@f1portal.com</span>
+        </div>
+        <button class="btn btn-outline-danger btn-sm btn-copy" data-clipboard-target="#support-email">Copy Email</button>
+    </section>
+
     <section>
-        <h2>Contact Us</h2>
+        <h2>Contact Form</h2>
 
-        <div id="form-alert" class="alert d-none mb-3" role="alert"></div>
-
+        <!-- TASK 6: Form with Loading Spinner and Validation -->
         <form id="contact-form" novalidate>
-            <label for="name">Your Name</label>
-            <input type="text" id="name" placeholder="Enter your name">
+            <div class="mb-3">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" placeholder="Enter your full name">
+            </div>
 
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="Enter your email">
+            <div class="mb-3">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="name@example.com">
+            </div>
 
-            <label for="message">Message</label>
-            <textarea id="message" rows="5" placeholder="Type your message here..."></textarea>
+            <div class="mb-3">
+                <label for="message">Message</label>
+                <textarea id="message" rows="5" placeholder="Write your inquiry or feedback here..."></textarea>
+            </div>
 
-            <button type="submit">Send Message</button>
+            <button type="submit" class="btn btn-danger w-100 fw-bold py-3 text-uppercase">Send Message</button>
         </form>
     </section>
 </main>
@@ -67,10 +97,9 @@
 
 <footer>
     <p>&copy; 2026 F1 Educational Portal. All rights reserved. | Developers: <strong>Anuar Tursynbekov</strong> & <strong>Zhanaiym Sadyk</strong>[cite: 1, 4]</p>
-    <p id="live-clock" class="text-light small mt-1 mb-0 fw-bold"></p>
+    <p id="live-clock" class="small mt-1 mb-0 fw-bold"></p>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
