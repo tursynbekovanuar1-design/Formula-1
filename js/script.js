@@ -1,5 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Web Audio API Sound Function
+jQuery(document).ready(function ($) {
+    console.log("F1 Portal: Engine started!");
+
+    // --- 1. ЗВУКОВОЙ ЭФФЕКТ (Аудио клик) ---
     function playSoundEffect() {
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -19,215 +21,362 @@ document.addEventListener("DOMContentLoaded", () => {
             oscillator.start();
             oscillator.stop(audioCtx.currentTime + 0.1);
         } catch (e) {
-            console.log("Audio play blocked by browser policy");
+            // Игнорируем блокировку автозвука до первого взаимодействия
         }
     }
 
-    // --- TASK 1: FORM VALIDATION (Contact Page) ---
-    const contactForm = document.getElementById("contact-form");
-    if (contactForm) {
-        contactForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            let isValid = true;
-            const name = document.getElementById("name");
-            const email = document.getElementById("email");
-            const message = document.getElementById("message");
-            const alertBox = document.getElementById("form-alert");
-
-            if (!name.value.trim()) {
-                name.classList.add("is-invalid");
-                isValid = false;
-            } else {
-                name.classList.remove("is-invalid");
-                name.classList.add("is-valid");
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email.value.trim() || !emailPattern.test(email.value)) {
-                email.classList.add("is-invalid");
-                isValid = false;
-            } else {
-                email.classList.remove("is-invalid");
-                email.classList.add("is-valid");
-            }
-
-            if (!message.value.trim() || message.value.trim().length < 5) {
-                message.classList.add("is-invalid");
-                isValid = false;
-            } else {
-                message.classList.remove("is-invalid");
-                message.classList.add("is-valid");
-            }
-
-            if (isValid) {
-                alertBox.classList.remove("d-none", "alert-danger");
-                alertBox.classList.add("alert-success");
-                alertBox.textContent = "Thank you! Your message has been sent successfully.";
-                contactForm.reset();
-                playSoundEffect();
-                setTimeout(() => {
-                    name.classList.remove("is-valid");
-                    email.classList.remove("is-valid");
-                    message.classList.remove("is-valid");
-                    alertBox.classList.add("d-none");
-                }, 4000);
-            } else {
-                alertBox.classList.remove("d-none", "alert-success");
-                alertBox.classList.add("alert-danger");
-                alertBox.textContent = "Please fill out all required fields correctly.";
-            }
-        });
+    // --- 2. DAY / NIGHT THEME SWITCHER ---
+    function applyTheme(theme) {
+        if (theme === "light") {
+            $("body").addClass("light-mode");
+            $("#theme-toggle-btn").text("🌙 Night Mode");
+        } else {
+            $("body").removeClass("light-mode");
+            $("#theme-toggle-btn").text("☀️ Day Mode");
+        }
     }
 
-    // --- TASK 2: ACCORDION (Teams Page) ---
-    const accordions = document.querySelectorAll(".accordion-header-custom");
-    accordions.forEach(header => {
-        header.addEventListener("click", () => {
-            playSoundEffect();
-            const content = header.nextElementSibling;
-            header.classList.toggle("active");
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
+    const savedTheme = localStorage.getItem("f1-theme") || "dark";
+    applyTheme(savedTheme);
+
+    $(document).on("click", "#theme-toggle-btn", function (e) {
+        e.preventDefault();
+        playSoundEffect();
+        if ($("body").hasClass("light-mode")) {
+            localStorage.setItem("f1-theme", "dark");
+            applyTheme("dark");
+            showToast("Theme Changed", "Switched to Night Mode");
+        } else {
+            localStorage.setItem("f1-theme", "light");
+            applyTheme("light");
+            showToast("Theme Changed", "Switched to Day Mode");
+        }
     });
 
-    // --- TASK 3: POPUP FORM (All Pages) ---
-    const popupBtn = document.getElementById("open-popup-btn");
-    const popupModal = document.getElementById("popup-modal");
-    const closePopupBtn = document.getElementById("close-popup-btn");
-
-    if (popupBtn && popupModal) {
-        popupBtn.addEventListener("click", () => {
-            playSoundEffect();
-            popupModal.style.display = "flex";
-        });
-
-        if (closePopupBtn) {
-            closePopupBtn.addEventListener("click", () => {
-                popupModal.style.display = "none";
-            });
-        }
-
-        window.addEventListener("click", (e) => {
-            if (e.target === popupModal) {
-                popupModal.style.display = "none";
-            }
-        });
-    }
-
-    // --- TASK 4: CHANGE BACKGROUND COLOR (Home Page) ---
-    const colorBtn = document.getElementById("color-change-btn");
-    if (colorBtn) {
-        const colors = ["#0b0b0e", "#1a252f", "#2c3e50", "#1f1f2e", "#2d3436"];
-        let colorIndex = 0;
-        colorBtn.addEventListener("click", () => {
-            playSoundEffect();
-            colorIndex = (colorIndex + 1) % colors.length;
-            document.body.style.setProperty("background-color", colors[colorIndex], "important");
-        });
-    }
-
-    // --- TASK 5: DISPLAY CURRENT DATE AND TIME (All Pages) ---
-    function updateClock() {
-        const clockElement = document.getElementById("live-clock");
-        if (clockElement) {
-            const now = new Date();
-            const options = {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: true
-            };
-            clockElement.textContent = now.toLocaleString('en-US', options);
-        }
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // --- RATING STARS SYSTEM (Home & Teams Pages) ---
-    const stars = document.querySelectorAll("#rating-stars .star");
-    const feedback = document.getElementById("rating-feedback");
-
-    stars.forEach((star, index) => {
-        star.addEventListener("click", () => {
-            playSoundEffect();
-            const ratingValue = star.getAttribute("data-value");
-            stars.forEach((s, i) => {
-                if (i <= index) {
-                    s.style.color = "#ff1801";
-                } else {
-                    s.style.color = "#6c757d";
-                }
-            });
-            if (feedback) {
-                feedback.textContent = `Thank you for rating us ${ratingValue} out of 5 stars!`;
-            }
-        });
-    });
-
-    // --- HOME PAGE: Динмический список гонок ---
+    // --- 3. DYNAMIC RACES LIST ---
     const races = [
         { name: "Monaco Grand Prix", circuit: "Circuit de Monaco", category: "Classic" },
         { name: "Silverstone Grand Prix", circuit: "Silverstone Circuit", category: "Classic" },
         { name: "Monza Grand Prix", circuit: "Autodromo Nazionale Monza", category: "High Speed" },
         { name: "Las Vegas Grand Prix", circuit: "Las Vegas Street Track", category: "Street Track" }
     ];
-    const racesListContainer = document.getElementById("dynamic-races-list");
-    if (racesListContainer) {
-        function renderRaces(data) {
-            racesListContainer.innerHTML = "";
-            data.forEach(r => {
-                const li = document.createElement("li");
-                li.className = "list-group-item bg-dark text-light border-secondary mb-2 rounded d-flex justify-content-between align-items-center";
-                li.innerHTML = `<span><strong>${r.name}</strong> - <em>${r.circuit}</em></span> <span class="badge bg-danger">${r.category}</span>`;
-                racesListContainer.appendChild(li);
-            });
-        }
-        renderRaces(races);
 
-        document.getElementById("filter-classic")?.addEventListener("click", () => {
-            playSoundEffect();
-            renderRaces(races.filter(r => r.category === "Classic"));
-        });
-        document.getElementById("reset-filter")?.addEventListener("click", () => {
-            playSoundEffect();
-            renderRaces(races);
+    function renderRaces(data) {
+        const $container = $("#dynamic-races-list");
+        if (!$container.length) return;
+        $container.empty();
+        data.forEach(r => {
+            $container.append(`
+                <li class="list-group-item mb-2 rounded d-flex justify-content-between align-items-center searchable-item highlightable">
+                    <span><strong>${r.name}</strong> - <em>${r.circuit}</em></span>
+                    <span class="badge bg-danger">${r.category}</span>
+                </li>
+            `);
         });
     }
 
-    // --- DRIVERS PAGE: Ваш точный список чемпионов со скриншота ---
+    renderRaces(races);
+
+    $(document).on("click", "#filter-classic", function (e) {
+        e.preventDefault();
+        playSoundEffect();
+        renderRaces(races.filter(r => r.category === "Classic"));
+    });
+
+    $(document).on("click", "#reset-filter", function (e) {
+        e.preventDefault();
+        playSoundEffect();
+        renderRaces(races);
+    });
+
+    // --- 4. DYNAMIC DRIVERS LIST ---
     const driverLegends = [
         { name: "Lewis Hamilton", text: "7 World Titles", status: "Multi-Champion" },
         { name: "Michael Schumacher", text: "7 World Titles", status: "Multi-Champion" },
         { name: "Max Verstappen", text: "3 World Titles", status: "Multi-Champion" },
         { name: "Charles Leclerc", text: "Contender", status: "Active Driver" }
     ];
-    const driversListContainer = document.getElementById("dynamic-drivers-list");
-    if (driversListContainer) {
-        function renderLegends(data) {
-            driversListContainer.innerHTML = "";
-            data.forEach(l => {
-                const li = document.createElement("li");
-                li.className = "list-group-item bg-dark text-light border-secondary mb-2 rounded d-flex justify-content-between align-items-center";
-                li.innerHTML = `<span><strong>${l.name}</strong> - ${l.text}</span> <span class="badge bg-danger">${l.status}</span>`;
-                driversListContainer.appendChild(li);
-            });
-        }
-        renderLegends(driverLegends);
 
-        document.getElementById("filter-multi")?.addEventListener("click", () => {
-            playSoundEffect();
-            renderLegends(driverLegends.filter(l => l.status === "Multi-Champion"));
-        });
-        document.getElementById("reset-drivers-filter")?.addEventListener("click", () => {
-            playSoundEffect();
-            renderLegends(driverLegends);
+    function renderLegends(data) {
+        const $container = $("#dynamic-drivers-list");
+        if (!$container.length) return;
+        $container.empty();
+        data.forEach(l => {
+            $container.append(`
+                <li class="list-group-item mb-2 rounded d-flex justify-content-between align-items-center searchable-item highlightable">
+                    <span><strong>${l.name}</strong> - <em>${l.text}</em></span>
+                    <span class="badge bg-danger">${l.status}</span>
+                </li>
+            `);
         });
     }
+
+    renderLegends(driverLegends);
+
+    $(document).on("click", "#filter-multi", function (e) {
+        e.preventDefault();
+        playSoundEffect();
+        renderLegends(driverLegends.filter(l => l.status === "Multi-Champion"));
+    });
+
+    $(document).on("click", "#reset-drivers-filter", function (e) {
+        e.preventDefault();
+        playSoundEffect();
+        renderLegends(driverLegends);
+    });
+
+    // --- 5. SEARCH, AUTOCOMPLETE & HIGHLIGHTING ---
+    const searchData = [
+        "Monaco Grand Prix", "Silverstone Grand Prix", "Monza Grand Prix", "Las Vegas Grand Prix",
+        "Lewis Hamilton", "Michael Schumacher", "Max Verstappen", "Charles Leclerc",
+        "Red Bull Racing", "Ferrari", "McLaren"
+    ];
+
+    $(document).on("keyup input", "#global-search-input", function () {
+        let query = $(this).val().toLowerCase().trim();
+        let $suggestions = $("#autocomplete-list");
+        $suggestions.empty();
+
+        $(".searchable-item").each(function () {
+            let text = $(this).text().toLowerCase();
+            if (text.includes(query) || query === "") {
+                $(this).fadeIn(200);
+            } else {
+                $(this).fadeOut(200);
+            }
+        });
+
+        if (query.length > 0) {
+            let matches = searchData.filter(item => item.toLowerCase().includes(query));
+            if (matches.length > 0) {
+                matches.forEach(match => {
+                    $suggestions.append(`<li class="dropdown-item search-suggest-item" style="cursor:pointer;">${match}</li>`);
+                });
+                $suggestions.show();
+            } else {
+                $suggestions.hide();
+            }
+        } else {
+            $suggestions.hide();
+        }
+
+        highlightText(query);
+    });
+
+    $(document).on("click", ".search-suggest-item", function () {
+        let val = $(this).text();
+        $("#global-search-input").val(val).trigger("keyup");
+        $("#autocomplete-list").hide();
+    });
+
+    function highlightText(keyword) {
+        $(".highlightable").each(function () {
+            let $el = $(this);
+            if (!$el.data("original-html")) {
+                $el.data("original-html", $el.html());
+            }
+            let original = $el.data("original-html");
+
+            if (!keyword) {
+                $el.html(original);
+                return;
+            }
+
+            let regex = new RegExp("(" + keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ")", "gi");
+            let highlighted = original.replace(regex, '<mark class="highlight-search">$1</mark>');
+            $el.html(highlighted);
+        });
+    }
+
+    // --- 6. ACCORDION ---
+    $(document).on("click", ".accordion-header-custom", function () {
+        playSoundEffect();
+        $(this).toggleClass("active");
+        $(this).next(".accordion-content-custom").slideToggle(300);
+    });
+
+    // --- 7. RATING STARS (КРАСНАЯ ПОДСВЕТКА И ФИКСАЦИЯ) ---
+    let currentRating = 0;
+
+    $(document).on("mouseenter", "#rating-stars .star", function () {
+        const hoverIndex = $(this).index();
+        $("#rating-stars .star").each(function (index) {
+            if (index <= hoverIndex) {
+                $(this).addClass("hovered");
+            } else {
+                $(this).removeClass("hovered");
+            }
+        });
+    });
+
+    $(document).on("mouseleave", "#rating-stars", function () {
+        $("#rating-stars .star").removeClass("hovered");
+    });
+
+    $(document).on("click", "#rating-stars .star", function () {
+        playSoundEffect();
+        currentRating = $(this).index() + 1;
+        const ratingValue = $(this).attr("data-value");
+
+        $("#rating-stars .star").each(function (index) {
+            if (index < currentRating) {
+                $(this).addClass("active");
+            } else {
+                $(this).removeClass("active");
+            }
+        });
+
+        $("#rating-feedback").text(`Thank you for rating us ${ratingValue} out of 5 stars!`);
+        showToast("Rating Received", `You rated us ${ratingValue}/5 stars!`);
+    });
+
+    // --- 8. POPUP MODAL ---
+    $(document).on("click", "#open-popup-btn", function (e) {
+        e.preventDefault();
+        playSoundEffect();
+        $("#popup-modal").css("display", "flex");
+    });
+
+    $(document).on("click", "#close-popup-btn", function () {
+        $("#popup-modal").css("display", "none");
+    });
+
+    $(window).on("click", function (e) {
+        if (e.target === $("#popup-modal")[0]) {
+            $("#popup-modal").css("display", "none");
+        }
+    });
+
+    // --- 9. TOAST NOTIFICATIONS ---
+    function showToast(title, message) {
+        let toastHtml = `
+            <div class="toast align-items-center text-bg-danger border-0 show custom-toast" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <strong>${title}:</strong> ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>`;
+        $("#toast-container").append(toastHtml);
+        setTimeout(() => {
+            $("#toast-container .toast").first().fadeOut(400, function () { $(this).remove(); });
+        }, 3500);
+    }
+
+    // --- 10. CLIPBOARD COPY ---
+    $(document).on("click", ".btn-copy", function (e) {
+        e.preventDefault();
+        playSoundEffect();
+        let targetSelector = $(this).data("clipboard-target");
+        let textToCopy = $(targetSelector).text().trim();
+        let $btn = $(this);
+
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                let originalText = $btn.html();
+                $btn.html('✓ Copied!');
+                showToast("Clipboard", `Copied "${textToCopy}" to clipboard!`);
+                setTimeout(() => { $btn.html(originalText); }, 2500);
+            });
+        }
+    });
+
+    // --- 11. FORM SUBMIT SPINNER ---
+    const contactForm = $("#contact-form");
+    if (contactForm.length) {
+        contactForm.on("submit", function (e) {
+            e.preventDefault();
+            let $btn = $(this).find('button[type="submit"]');
+            let originalBtnText = $btn.html();
+
+            let isValid = true;
+            const name = $("#name");
+            const email = $("#email");
+            const message = $("#message");
+
+            if (!name.val().trim()) { name.addClass("is-invalid"); isValid = false; }
+            else { name.removeClass("is-invalid").addClass("is-valid"); }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.val().trim() || !emailPattern.test(email.val())) { email.addClass("is-invalid"); isValid = false; }
+            else { email.removeClass("is-invalid").addClass("is-valid"); }
+
+            if (!message.val().trim() || message.val().trim().length < 5) { message.addClass("is-invalid"); isValid = false; }
+            else { message.removeClass("is-invalid").addClass("is-valid"); }
+
+            if (isValid) {
+                $btn.prop("disabled", true).html('<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Please wait...');
+
+                setTimeout(() => {
+                    playSoundEffect();
+                    $btn.prop("disabled", false).html(originalBtnText);
+                    contactForm[0].reset();
+                    name.removeClass("is-valid");
+                    email.removeClass("is-valid");
+                    message.removeClass("is-valid");
+
+                    showToast("Success", "Your message has been sent successfully!");
+                }, 2000);
+            } else {
+                showToast("Error", "Please fill out all required fields correctly.");
+            }
+        });
+    }
+
+    // --- 12. ANIMATIONS, SCROLL & CLOCK ---
+    $(window).on("scroll", function () {
+        let winScroll = $(window).scrollTop();
+        let height = $(document).height() - $(window).height();
+        let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+        $("#scroll-progress").css("width", scrolled + "%");
+    });
+
+    if ($(".counter-value").length) {
+        $(".counter-value").each(function () {
+            let $this = $(this);
+            let countTo = parseInt($this.attr("data-count"));
+            $({ countNum: 0 }).animate(
+                { countNum: countTo },
+                {
+                    duration: 2000,
+                    easing: "swing",
+                    step: function () { $this.text(Math.floor(this.countNum)); },
+                    complete: function () { $this.text(this.countNum); }
+                }
+            );
+        });
+    }
+
+    function updateClock() {
+        const clockElement = $("#live-clock");
+        if (clockElement.length) {
+            const now = new Date();
+            const options = {
+                month: 'long', day: 'numeric', year: 'numeric',
+                hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true
+            };
+            clockElement.text(now.toLocaleString('en-US', options));
+        }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // --- 13. LAZY LOADING ---
+    function lazyLoadImages() {
+        $("img.lazy-load").each(function () {
+            let $img = $(this);
+            let realSrc = $img.data("src");
+            if (realSrc && ($img.attr("src") !== realSrc)) {
+                let imgTop = $img.offset().top;
+                let winBottom = $(window).scrollTop() + $(window).height();
+
+                if (imgTop < winBottom + 150) {
+                    $img.attr("src", realSrc).removeClass("lazy-load");
+                }
+            }
+        });
+    }
+    $(window).on("scroll resize", lazyLoadImages);
+    lazyLoadImages();
 });
